@@ -2015,8 +2015,8 @@ class LevelUp(UserCommands, Generator, commands.Cog, metaclass=CompositeMetaClas
                 uid = str(user["id"])
                 member = ctx.guild.get_member(int(uid))
                 if member is None:
-                    member_cache_search = self.bot.get_user(int(uid))
-                    if member_cache_search is None:
+                    user_cache_search = self.bot.get_user(int(uid))
+                    if user_cache_search is None:
                         try:
                             await self.bot.fetch_user(int(uid))
                         except discord.NotFound:
