@@ -2013,8 +2013,9 @@ class LevelUp(UserCommands, Generator, commands.Cog, metaclass=CompositeMetaClas
         async with ctx.typing():
             async for user in AsyncIter(players):
                 uid = str(user["id"])
-                member = ctx.guild.get_member(int(uid))
-                if not member:
+                try:
+                    deleted_check = await self.bot.fetch_user(int(uid))
+                except discord.NotFound:
                     failed += 1
                     continue
 
@@ -2038,7 +2039,7 @@ class LevelUp(UserCommands, Generator, commands.Cog, metaclass=CompositeMetaClas
         else:
             txt = _("Imported {} User(s)").format(str(imported))
             if failed:
-                txt += _(" ({} skipped since they are no longer in the discord)").format(
+                txt += _(" ({} skipped since their accounts no longer exist.)").format(
                     str(failed)
                 )
             await msg.edit(content=txt)
