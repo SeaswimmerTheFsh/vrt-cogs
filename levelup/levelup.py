@@ -2013,15 +2013,6 @@ class LevelUp(UserCommands, Generator, commands.Cog, metaclass=CompositeMetaClas
         async with ctx.typing():
             async for user in AsyncIter(players):
                 uid = str(user["id"])
-                member = ctx.guild.get_member(int(uid))
-                if member is None:
-                    user_cache_search = self.bot.get_user(int(uid))
-                    if user_cache_search is None:
-                        try:
-                            await self.bot.fetch_user(int(uid))
-                        except discord.NotFound:
-                            failed += 1
-                            continue
 
                 xp = user["xp"]
                 if uid not in self.data[ctx.guild.id]["users"]:
