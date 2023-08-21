@@ -2013,7 +2013,7 @@ class LevelUp(UserCommands, Generator, commands.Cog, metaclass=CompositeMetaClas
         async with ctx.typing():
             async for user in AsyncIter(players):
                 uid = str(user["id"])
-                member = ctx.guild.get_user(int(uid))
+                member = ctx.guild.get_member(int(uid))
                 if member is None:
                     member_cache_search = self.bot.get_user(int(uid))
                     if member_cache_search is None:
