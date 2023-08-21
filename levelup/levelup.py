@@ -2015,11 +2015,13 @@ class LevelUp(UserCommands, Generator, commands.Cog, metaclass=CompositeMetaClas
                 uid = str(user["id"])
                 member = ctx.guild.get_user(int(uid))
                 if member is None:
-                    try:
-                        deleted_check = await self.bot.fetch_user(int(uid))
-                    except discord.NotFound:
-                        failed += 1
-                        continue
+                    member_cache_search = self.bot.get_user(int(uid))
+                    if member_cache_search is None:
+                        try:
+                            await self.bot.fetch_user(int(uid))
+                        except discord.NotFound:
+                            failed += 1
+                            continue
 
                 xp = user["xp"]
                 if uid not in self.data[ctx.guild.id]["users"]:
